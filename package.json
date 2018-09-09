@@ -1,0 +1,45 @@
+{
+  "name": "react-pipe-request",
+  "version": "0.1.0",
+  "description": "React Pipe Request",
+  "main": "lib/index.js",
+  "scripts": {
+    "lib": "eslint src/index.js && babel src -d lib",
+    "lib:watch": "babel src -w -d lib"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "author": "Guillaume Jasmin",
+  "homepage": "https://github.com/guillaumejasmin/react-pipe-request",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:guillaumejasmin/react-pipe-request.git"
+  },
+  "peerDependencies": {
+    "react": "15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.37",
+    "@babel/core": "^7.0.0-beta.37",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.37",
+    "@babel/preset-react": "^7.0.0-beta.37",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "prettier": "^1.14.2"
+  },
+  "dependencies": {
+    "recompose": "^0.30.0"
+  }
+}
