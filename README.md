@@ -1,6 +1,6 @@
 # React Render Pipe
 
-Chain, setup and reuse [High Order Components](https://reactjs.org/docs/higher-order-components.html) easily accross your React application.
+Chain, setup and reuse [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) easily accross your React application.
 
 ## Motivation
 
