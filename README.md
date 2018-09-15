@@ -245,7 +245,7 @@ const App = renderPipeRequest()
   .render(MyComponent)
 ```
 
-Just above, the documentation of `renderPipeRequest()`
+Just below, the documentation of `renderPipeRequest()`
 
 ```js
 import { renderPipeRequest } from 'react-render-pipe'
