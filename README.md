@@ -37,7 +37,7 @@ const hocs = {
   mySecondHOC: { ... }
 }
 
-const myRenderPipe = renderPipe(hocs)
+const myRenderPipe = () => renderPipe(hocs)
 ```
 
 Then, reuse it !
