@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "lib": "eslint src/index.js && babel src -d lib",
-    "lib:watch": "babel src -w -d lib"
+    "lib:watch": "babel src -w -d lib",
+    "test": "npx jest --coverage",
+    "test-dev": "npx jest --verbose --coverage"
   },
   "keywords": [],
   "license": "MIT",
@@ -22,14 +24,18 @@
     "react": "15.0.0 || ^16.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.37",
-    "@babel/core": "^7.0.0-beta.37",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
-    "@babel/preset-env": "^7.0.0-beta.37",
-    "@babel/preset-react": "^7.0.0-beta.37",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^8.0.0-beta.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.1",
+    "@babel/plugin-external-helpers": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -37,7 +43,10 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "prettier": "^1.14.2"
+    "jest": "^23.6.0",
+    "prettier": "^1.14.2",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1"
   },
   "dependencies": {}
 }

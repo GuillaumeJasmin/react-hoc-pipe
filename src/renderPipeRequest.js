@@ -3,7 +3,7 @@ import { renderPipe } from './renderPipe'
 
 const actions = {
   request: {
-    paramsFn: ['renderLoader', 'mapRequestToProps'],
+    externalsParams: ['renderLoader', 'mapRequestToProps'],
     HOC: hocs => request => App => {
       return class RenderPipeRequest extends React.Component {
         constructor(props) {
@@ -29,7 +29,7 @@ const actions = {
           const FinalApp = App
           const finalProps = { ...this.props, ...data }
           const Loader = hocs.renderLoader ? hocs.renderLoader[0] : null
-          return !isReady ? (
+          return !isReady && Loader ? (
             <Loader {...finalProps} />
           ) : (
             <FinalApp {...finalProps} />

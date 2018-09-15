@@ -7,6 +7,16 @@ import React from 'react'
 const compose = (...funcs) =>
   funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
 
+export const getAllFunctions = (actions = {}) => {
+  return [
+    ...Object.keys(actions),
+    ...Object.values(actions)
+      .map(action => action.externalsParams)
+      .filter(_ => _)
+      .reduce((a, b) => [...a, ...b], []),
+  ]
+}
+
 export const renderPipe = actions => {
   const userPipeActions = {}
 
@@ -25,13 +35,7 @@ export const renderPipe = actions => {
     },
   }
 
-  const allFunctions = [
-    ...Object.keys(actions),
-    ...Object.values(actions)
-      .map(action => action.paramsFn)
-      .filter(_ => _)
-      .reduce((a, b) => [...a, ...b], []),
-  ]
+  const allFunctions = getAllFunctions(actions)
 
   allFunctions.forEach(name => {
     if (pipeActions[name]) {
