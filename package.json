@@ -1,7 +1,7 @@
 {
-  "name": "react-pipe-request",
+  "name": "react-render-pipe",
   "version": "0.1.0",
-  "description": "React Pipe Request",
+  "description": "React Render Pipe",
   "main": "lib/index.js",
   "scripts": {
     "lib": "eslint src/index.js && babel src -d lib",
@@ -13,10 +13,10 @@
     "lib"
   ],
   "author": "Guillaume Jasmin",
-  "homepage": "https://github.com/guillaumejasmin/react-pipe-request",
+  "homepage": "https://github.com/guillaumejasmin/react-render-pipe",
   "repository": {
     "type": "git",
-    "url": "git@github.com:guillaumejasmin/react-pipe-request.git"
+    "url": "git@github.com:guillaumejasmin/react-render-pipe.git"
   },
   "peerDependencies": {
     "react": "15.0.0 || ^16.0.0"
@@ -39,7 +39,5 @@
     "eslint-plugin-react": "^7.7.0",
     "prettier": "^1.14.2"
   },
-  "dependencies": {
-    "recompose": "^0.30.0"
-  }
+  "dependencies": {}
 }
