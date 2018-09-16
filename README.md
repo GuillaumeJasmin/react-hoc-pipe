@@ -19,12 +19,12 @@ Do you want to see a concrete example now? See [HOC pipe request](#hoc-pipe-requ
 
 - [HOC Pipe Documention](#hoc-pipe)
 
-  - [How to create a pipe](#how-to-create-a-renderpipe-)
+  - [How to create a pipe](#how-to-create-a-pipe-)
   - [How to define HOCs](#how-to-define-hoc-)
   - [What are externals params ?](#what-are-externalsparams-)
 
 - [Real world examples](#real-world-examples)
-  - [RendePipeRequest](#hoc-pipe-request)
+  - [pipeRequest](#pipe-request)
   - [HOC with arguments, like redux connect(mapStateToProps, mapDispatchToProps)](#hoc-with-arguments-like-redux-connect-)
   - [HOC without arguments, like React Router withRouter()](#hoc-without-arguments-like-withrouter-)
   - [Enhance redux connect() with externals params](#enhance-redux-connect-with-externals-params)
@@ -243,7 +243,7 @@ const Page2 = request(...)(connect(...)(Component))
 
 Do you want a full real usefull example ? Well. I made a HOC pipe focus on the request handling.
 
-## Rende Pipe Request
+## Pipe Request
 
 `pipeRequest()` is a predefined HOC pipe, focus on the request feature. It makes it possible to perform a request, show a loader, map request results to props, and then render your component,
 
