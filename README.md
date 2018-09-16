@@ -13,7 +13,7 @@ On a React project, you often use the same [HOC](https://reactjs.org/docs/higher
 
 A predefined HOC pipe, named `pipeRequest`, is also provided. You can create your own pipe, or use pipeRequest and extends it with your HOCs.
 
-Do you want to see a concrete example now? See [HOC pipe request](#hoc-pipe-request) or a [full reusable HOC pipe](#full-reusable-hoc-pipe)
+Do you want to see a concrete example now? See [HOC pipe request](#pipe-request) or a [full reusable HOC pipe](#full-reusable-hoc-pipe)
 
 ---
 
@@ -93,7 +93,7 @@ const hocs = {
 }
 ```
 
-- `externalsParams` - optional - functions to set parameters that will be used inside HOC. [More detail](#what-is-externalsparams-)
+- `externalsParams` - optional - functions to set parameters that will be used inside HOC. [More detail](#what-are-externalsparams-)
 
 - `data` - optional - yours HOC arguments
 
