@@ -1,5 +1,10 @@
 # React HOC Pipe
 
+[![Build Status](https://travis-ci.org/GuillaumeJasmin/react-hoc-pipe.svg?branch=master)](https://travis-ci.org/GuillaumeJasmin/react-hoc-pipe)
+[![Coverage Status](https://coveralls.io/repos/github/GuillaumeJasmin/react-hoc-pipe/badge.svg?branch=master&service=github)](https://coveralls.io/github/GuillaumeJasmin/react-hoc-pipe?branch=master)
+[![npm version](https://img.shields.io/npm/v/react-hoc-pipe.svg)](https://www.npmjs.com/package/react-hoc-pipe)
+[![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest)
+
 Chain, setup and reuse [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) easily accross your React application.
 
 ## Motivation
