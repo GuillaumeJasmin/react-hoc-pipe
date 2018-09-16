@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderPipe } from './renderPipe'
+import { pipe } from './pipe'
 
 const actions = {
   request: {
@@ -40,7 +40,7 @@ const actions = {
   },
 }
 
-export const renderPipeRequest = externalsActions =>
-  renderPipe({ ...externalsActions, ...actions })
+export const pipeRequest = externalsActions =>
+  pipe({ ...externalsActions, ...actions })
 
-export default { renderPipeRequest }
+export default { pipeRequest }

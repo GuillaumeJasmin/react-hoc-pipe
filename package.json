@@ -1,5 +1,5 @@
 {
-  "name": "react-render-pipe",
+  "name": "react-hoc-pipe",
   "version": "0.1.0",
   "description": "React Render Pipe",
   "main": "lib/index.js",
@@ -15,10 +15,10 @@
     "lib"
   ],
   "author": "Guillaume Jasmin",
-  "homepage": "https://github.com/guillaumejasmin/react-render-pipe",
+  "homepage": "https://github.com/guillaumejasmin/react-hoc-pipe",
   "repository": {
     "type": "git",
-    "url": "git@github.com:guillaumejasmin/react-render-pipe.git"
+    "url": "git@github.com:guillaumejasmin/react-hoc-pipe.git"
   },
   "peerDependencies": {
     "react": "15.0.0 || ^16.0.0"

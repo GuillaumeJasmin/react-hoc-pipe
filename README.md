@@ -1,35 +1,47 @@
-# React Render Pipe
+# React HOC Pipe
 
 Chain, setup and reuse [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) easily accross your React application.
 
 ## Motivation
 
-On a React project, you often use the same [HOC](https://reactjs.org/docs/higher-order-components.html), with sometimes the same arguments. `renderPipe()` enable to create a pipe of HOC, and reuse it accross your application.
+On a React project, you often use the same [HOC](https://reactjs.org/docs/higher-order-components.html), with sometimes the same arguments. `pipe()` enable to create a pipe of HOC, and reuse it accross your application.
 
-A predefined render pipe, named `renderPipeRequest`, is also provided. You can create your own renderPipe, or use renderPipeRequest and extends it with your HOCs.
+A predefined HOC pipe, named `pipeRequest`, is also provided. You can create your own pipe, or use pipeRequest and extends it with your HOCs.
 
-Do you want to see a concrete example now? See [render pipe request](#rende-pipe-request) or a [full reusable render pipe](#full-reusable-render-pipe)
+Do you want to see a concrete example now? See [HOC pipe request](#hoc-pipe-request) or a [full reusable HOC pipe](#full-reusable-hoc-pipe)
 
 ---
 
-- [Render Pipe Documention](#render-pipe)
+- [HOC Pipe Documention](#hoc-pipe)
 
-  - [How to create a renderPipe](#how-to-create-a-renderpipe-)
+  - [How to create a pipe](#how-to-create-a-renderpipe-)
   - [How to define HOCs](#how-to-define-hoc-)
   - [What are externals params ?](#what-are-externalsparams-)
 
 - [Real world examples](#real-world-examples)
-  - [RendePipeRequest](#rende-pipe-request)
+  - [RendePipeRequest](#hoc-pipe-request)
   - [HOC with arguments, like redux connect(mapStateToProps, mapDispatchToProps)](#hoc-with-arguments-like-redux-connect-)
   - [HOC without arguments, like React Router withRouter()](#hoc-without-arguments-like-withrouter-)
   - [Enhance redux connect() with externals params](#enhance-redux-connect-with-externals-params)
-  - [Full reusable render pipe](#full-reusable-render-pipe)
+  - [Full reusable HOC pipe](#full-reusable-hoc-pipe)
 
-# Render Pipe
+# Install
 
-`renderPipe()` is a reusable pipe of HOC.
+```bash
+npm install react-hoc-pipe --save
+```
 
-## How to create a renderPipe ?
+or with yarn
+
+```bash
+yarn add react-hoc-pipe
+```
+
+# HOC Pipe
+
+`pipe()` is a reusable pipe of HOC.
+
+## How to create a pipe ?
 
 ```js
 const hocs = {
@@ -37,7 +49,7 @@ const hocs = {
   mySecondHOC: { ... }
 }
 
-const myRenderPipe = () => renderPipe(hocs)
+const myPipe = () => pipe(hocs)
 ```
 
 Then, reuse it !
@@ -47,7 +59,7 @@ class Component extends React.Component {
   ...
 }
 
-const App = myRenderPipe()
+const App = myPipe()
   .myFirstHOC(params)
   .mySecondHOC()
   .render(Component)
@@ -98,11 +110,11 @@ const hocs = {
   }
 }
 
-const myRenderPipe = () => renderPipe(hocs)
+const myPipe = () => pipe(hocs)
 
 ...
 
-const App = myRenderPipe()
+const App = myPipe()
   .withData({ foo: 'bar' })
   .render((props) => {
     return <div>{props.foo}</dib>
@@ -132,11 +144,11 @@ const hocs = {
   }
 }
 
-const myRenderPipe = () => renderPipe(hocs)
+const myPipe = () => pipe(hocs)
 
 ...
 
-const App = myRenderPipe()
+const App = myPipe()
   .withData({ foo: 'bar' })
   .addData({ foo2: 'bar2' })
   .render((props) => {
@@ -146,7 +158,7 @@ const App = myRenderPipe()
 
 "_Wait, why do not simply use only `withData()` and pass all data through it_" :question:
 
-Good question ! And the anwser is simple: sometimes, you want to reuse a renderPipe, with the same parameter 95% of the time, and 5% remaining, you want to override it.
+Good question ! And the anwser is simple: sometimes, you want to reuse a pipe, with the same parameter 95% of the time, and 5% remaining, you want to override it.
 
 Example:
 
@@ -160,25 +172,25 @@ const hocs = {
 
 const Loader = () => <div>...</div>
 
-const myRenderPipe = () => renderPipe(hocs).renderLoader(Loader)
+const myPipe = () => pipe(hocs).renderLoader(Loader)
 
 ...
 
-const Page1 = myRenderPipe()
+const Page1 = myPipe()
   .request(...)
   .render(...)
 
 ...
 
-const Page2 = myRenderPipe()
+const Page2 = myPipe()
   .request(...)
   .render(...)
 ```
 
-You defined your spinner only once, and it will be use into all of your `myRenderPipe()`, until you override it. If you want to override it for a specific component, it's simple:
+You defined your spinner only once, and it will be use into all of your `myPipe()`, until you override it. If you want to override it for a specific component, it's simple:
 
 ```js
-const Page1 = myRenderPipe()
+const Page1 = myPipe()
   .request(..)
   .renderLoader(() => <div>Loading...</div>)
   .render(...)
@@ -187,12 +199,12 @@ const Page1 = myRenderPipe()
 :warning: externals params doesn't care about the call order. Externals parameters can be call before or after his HOC. Both `Page1` and `Page2` are equivalent:
 
 ```js
-const Page1 = myRenderPipe()
+const Page1 = myPipe()
   .request()
   .renderLoader()
   .render()
 
-const Page2 = myRenderPipe()
+const Page2 = myPipe()
   .renderLoader()
   .request()
   .render()
@@ -203,12 +215,12 @@ However, the call order of HOC is important !
 `Page1` and `Page2` are not the same:
 
 ```js
-const Page1 = myRenderPipe()
+const Page1 = myPipe()
   .connect(...)
   .request(...)
   .render(Component)
 
-const Page2 = myRenderPipe()
+const Page2 = myPipe()
   .request()
   .connect()
   .render(Component)
@@ -224,31 +236,31 @@ const Page2 = request(...)(connect(...)(Component))
 
 # Real world examples
 
-Do you want a full real usefull example ? Well. I made a render pipe focus on the request handling.
+Do you want a full real usefull example ? Well. I made a HOC pipe focus on the request handling.
 
 ## Rende Pipe Request
 
-`renderPipeRequest()` is a predefined render pipe, focus on the request feature. It makes it possible to perform a request, show a loader, map request results to props, and then render your component,
+`pipeRequest()` is a predefined HOC pipe, focus on the request feature. It makes it possible to perform a request, show a loader, map request results to props, and then render your component,
 
 ```js
 import React from 'react'
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 
 class MyComponent extends React.Component {
   ...
 }
 
-const App = renderPipeRequest()
+const App = pipeRequest()
   .request((props) => fetch('http://website.com/posts'))
   .mapRequestToProps((response) => ({ posts: response.posts }))
   .renderLoader(() => <div>Loading...</div>)
   .render(MyComponent)
 ```
 
-Just below, the documentation of `renderPipeRequest()`
+Just below, the documentation of `pipeRequest()`
 
 ```js
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 
 /**
  * hocs are optional
@@ -257,7 +269,7 @@ const hocs = {
   ...
 }
 
-const App = renderPipeRequest(hocs)
+const App = pipeRequest(hocs)
   /**
    * async request. Must return a Promise
    *
@@ -300,10 +312,10 @@ const App = renderPipeRequest(hocs)
 
 ## HOC with arguments, like redux connect()
 
-Here, I will use `renderPipeRequest()`, but if you doesn't need request handling, you can use `renderPipe()`
+Here, I will use `pipeRequest()`, but if you doesn't need request handling, you can use `pipe()`
 
 ```js
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 import { connect } from 'react-redux'
 
 const hocs = {
@@ -316,7 +328,7 @@ const hocs = {
   }
 }
 
-const App = renderPipeRequest({ connect })
+const App = pipeRequest({ connect })
   .connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -340,7 +352,7 @@ As you can see, `connect()` take params and return another function, while `with
 Note: in the following examples, `externalsParams` are useless.
 
 ```js
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -353,7 +365,7 @@ const hocs = {
   }
 }
 
-const App = renderPipeRequest(hocs)
+const App = pipeRequest(hocs)
   .connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -368,7 +380,7 @@ const App = renderPipeRequest(hocs)
 externals params can be usefull for defined `mapDispatchToProps`, if you often use the same actions.
 
 ```js
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 import { connect } from 'react-redux'
 import { fetchUser } from 'src/store/actions'
 
@@ -382,20 +394,20 @@ const hocs = {
   }
 }
 
-const myRenderPipeRequest = () => renderPipeRequest(hocs).mapDispatchToProps({ fetchUser })
+const myPipeRequest = () => pipeRequest(hocs).mapDispatchToProps({ fetchUser })
 
 ...
 
-const App = myRenderPipeRequest()
+const App = myPipeRequest()
   .connect(mapStateToProps)
   .request(props => props.fetchUser()) // fetchUser is binded to redux store
   .render(props => <div>...</div>)
 ```
 
-## Full reusable render pipe
+## Full reusable HOC pipe
 
 ```js
-import { renderPipeRequest } from 'react-render-pipe'
+import { pipeRequest } from 'react-hoc-pipe'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchUser } from 'src/store/actions'
@@ -409,8 +421,8 @@ const hocs = {
   },
 }
 
-const renderPipeWithUser = externalsHOCs =>
-  renderPipeRequest({ hocs, ...externalsHOCs })
+const pipeWithUser = externalsHOCs =>
+  pipeRequest({ hocs, ...externalsHOCs })
     .withRouter()
     .connect(
       (state, props) => {
@@ -436,7 +448,7 @@ const UserView = (props) => (
   </div>
 )
 
-const User = renderPipeWithUser().render(UserView)
+const User = pipeWithUser().render(UserView)
 
 ...
 

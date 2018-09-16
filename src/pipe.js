@@ -17,7 +17,7 @@ export const getAllFunctions = (actions = {}) => {
   ]
 }
 
-export const renderPipe = actions => {
+export const pipe = actions => {
   const userPipeActions = {}
 
   const pipeActions = {
@@ -56,5 +56,5 @@ export const renderPipe = actions => {
 }
 
 export default {
-  renderPipe,
+  pipe,
 }

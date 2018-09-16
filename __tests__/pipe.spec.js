@@ -3,7 +3,7 @@
 import React from 'react'
 import enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { getAllFunctions, renderPipe, renderPipeRequest } from '../src/index'
+import { getAllFunctions, pipe, pipeRequest } from '../src/index'
 
 enzyme.configure({ adapter: new Adapter() })
 
@@ -31,10 +31,10 @@ describe('getAllFunctions', () => {
   })
 })
 
-describe('renderPipe', () => {
+describe('pipe', () => {
   it('should render Component', () => {
     const Component = jest.fn(() => null)
-    const App = renderPipe().render(Component)
+    const App = pipe().render(Component)
     mount(<App />)
     expect(Component).toBeCalled()
   })
@@ -63,7 +63,7 @@ describe('renderPipe', () => {
   }
 
   it('should render HOC and Component and transform data', () => {
-    const App = renderPipe(hocs)
+    const App = pipe(hocs)
       .request({ x: 'xValue' })
       .addData({ y: 'yValue' })
       .transformProps()
@@ -76,7 +76,7 @@ describe('renderPipe', () => {
   })
 
   it('should render HOC and Component and transform with different order', () => {
-    const App = renderPipe(hocs)
+    const App = pipe(hocs)
       .transformProps()
       .request({ x: 'xValue' })
       .addData({ y: 'yValue' })
@@ -87,17 +87,17 @@ describe('renderPipe', () => {
   })
 
   it('shloud throw an error', () => {
-    expect(() => renderPipe({ render: {} })).toThrow(
+    expect(() => pipe({ render: {} })).toThrow(
       'actions render is a already defined',
     )
   })
 })
 
-describe('renderPipeRequest', () => {
+describe('pipeRequest', () => {
   it('should render Component', () => {
     const Component = jest.fn(() => null)
     const Loader = jest.fn(() => null)
-    const App = renderPipeRequest()
+    const App = pipeRequest()
       .request(() => Promise.resolve(true))
       .renderLoader(Loader)
       .render(Component)
@@ -113,7 +113,7 @@ describe('renderPipeRequest', () => {
 
   it('should render Component with correct props', () => {
     const Component = props => <div>{props.y}</div>
-    const App = renderPipeRequest()
+    const App = pipeRequest()
       .request(() => Promise.resolve({ x: 'x' }))
       .mapRequestToProps(props => ({ y: `${props.x}-y` }))
       .render(Component)

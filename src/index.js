@@ -1,2 +1,2 @@
-export * from './renderPipe'
-export * from './renderPipeRequest'
+export * from './pipe'
+export * from './pipeRequest'
