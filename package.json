@@ -1,7 +1,7 @@
 {
   "name": "react-hoc-pipe",
   "version": "0.1.0",
-  "description": "React Render Pipe",
+  "description": "React HOC Pipe",
   "main": "lib/index.js",
   "scripts": {
     "lib": "eslint src/index.js && babel src -d lib",
@@ -19,9 +19,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:guillaumejasmin/react-hoc-pipe.git"
-  },
-  "peerDependencies": {
-    "react": "15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -47,6 +44,5 @@
     "prettier": "^1.14.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1"
-  },
-  "dependencies": {}
+  }
 }
