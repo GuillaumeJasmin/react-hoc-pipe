@@ -22,13 +22,14 @@ export const pipe = actions => {
 
   const pipeActions = {
     render: App => {
+      const FinalApp = compose(
+        ...Object.values(userPipeActions)
+          .filter(hoc => typeof hoc === 'function')
+          .map(hoc => hoc(userPipeActions)),
+      )(App)
+
       return class RenderPipe extends React.Component {
         render() {
-          const FinalApp = compose(
-            ...Object.values(userPipeActions)
-              .filter(hoc => typeof hoc === 'function')
-              .map(hoc => hoc(userPipeActions)),
-          )(App)
           return <FinalApp {...this.props} />
         }
       }
