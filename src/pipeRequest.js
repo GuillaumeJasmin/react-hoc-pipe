@@ -15,6 +15,7 @@ const actions = {
 
         componentDidMount() {
           request(this.props).then(res => {
+            if (this.isUnmount) return
             this.setState({
               isReady: true,
               data: hocs.mapRequestToProps
@@ -22,6 +23,10 @@ const actions = {
                 : null,
             })
           })
+        }
+
+        componentWillUnmount() {
+          this.isUnmount = true
         }
 
         render() {
