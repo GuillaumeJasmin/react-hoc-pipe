@@ -7,27 +7,13 @@ import React from 'react'
 const compose = (...funcs) =>
   funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
 
-export const getAllFunctions = (actions = {}) => {
-  return [
-    ...Object.keys(actions),
-    ...Object.values(actions)
-      .map(action => action.externalsParams)
-      .filter(_ => _)
-      .reduce((a, b) => [...a, ...b], []),
-  ]
-}
-
 export const pipe = actions => {
   const userPipeActions = {}
+  const options = {}
 
   const pipeActions = {
     render: App => {
-      const FinalApp = compose(
-        ...Object.values(userPipeActions)
-          .filter(hoc => typeof hoc === 'function')
-          .map(hoc => hoc(userPipeActions)),
-      )(App)
-
+      const FinalApp = compose(...Object.values(userPipeActions))(App)
       return class RenderPipe extends React.Component {
         render() {
           return <FinalApp {...this.props} />
@@ -36,18 +22,13 @@ export const pipe = actions => {
     },
   }
 
-  const allFunctions = getAllFunctions(actions)
+  Object.entries(actions).forEach(([key, value]) => {
+    pipeActions[key] = params => {
+      const exec = value(options)(params)
 
-  allFunctions.forEach(name => {
-    if (pipeActions[name]) {
-      throw new Error(`actions ${name} is a already defined`)
-    }
-
-    pipeActions[name] = (...args) => {
-      const action = actions[name]
-      userPipeActions[name] = action
-        ? finalUserPipeActions => action.HOC(finalUserPipeActions)(...args)
-        : args
+      if (exec !== undefined) {
+        userPipeActions[key] = exec
+      }
 
       return pipeActions
     }

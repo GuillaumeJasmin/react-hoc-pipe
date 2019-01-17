@@ -2,46 +2,49 @@ import React from 'react'
 import { pipe } from './pipe'
 
 const actions = {
-  request: {
-    externalsParams: ['renderLoader', 'mapRequestToProps'],
-    HOC: hocs => request => App => {
-      return class RenderPipeRequest extends React.Component {
-        constructor(props) {
-          super(props)
-          this.state = {
-            isReady: false,
-          }
-        }
-
-        componentDidMount() {
-          request(this.props).then(res => {
-            if (this.isUnmount) return
-            this.setState({
-              isReady: true,
-              data: hocs.mapRequestToProps
-                ? hocs.mapRequestToProps[0](res)
-                : null,
-            })
-          })
-        }
-
-        componentWillUnmount() {
-          this.isUnmount = true
-        }
-
-        render() {
-          const { isReady, data } = this.state
-          const FinalApp = App
-          const finalProps = { ...this.props, ...data }
-          const Loader = hocs.renderLoader ? hocs.renderLoader[0] : null
-          return !isReady && Loader ? (
-            <Loader {...finalProps} />
-          ) : (
-            <FinalApp {...finalProps} />
-          )
+  renderLoader: options => Loader => {
+    options.Loader = Loader
+  },
+  mapRequestToProps: options => mapRequestToProps => {
+    options.mapRequestToProps = mapRequestToProps
+  },
+  request: options => request => App => {
+    return class RenderPipeRequest extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          isReady: false,
         }
       }
-    },
+
+      componentDidMount() {
+        request(this.props).then(res => {
+          if (this.isUnmount) return
+          this.setState({
+            isReady: true,
+            data: options.mapRequestToProps
+              ? options.mapRequestToProps(res)
+              : null,
+          })
+        })
+      }
+
+      componentWillUnmount() {
+        this.isUnmount = true
+      }
+
+      render() {
+        const { isReady, data } = this.state
+        const FinalApp = App
+        const finalProps = { ...this.props, ...data }
+        const Loader = options.Loader || null
+        return !isReady && Loader ? (
+          <Loader {...finalProps} />
+        ) : (
+          <FinalApp {...finalProps} />
+        )
+      }
+    }
   },
 }
 

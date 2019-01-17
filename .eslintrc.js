@@ -13,6 +13,8 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'react/prefer-stateless-function': 0,
     'react/no-multi-comp': 0,
+    'import/no-extraneous-dependencies': 0,
+    'no-param-reassign': 0,
   },
   settings: {
     'import/resolver': {
