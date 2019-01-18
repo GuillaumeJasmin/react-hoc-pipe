@@ -27,8 +27,8 @@ export const pipe = (actions = {}) => {
       throw new Error(`actions ${key} is a already defined`)
     }
 
-    pipeActions[key] = params => {
-      const exec = value(options)(params)
+    pipeActions[key] = (...params) => {
+      const exec = value(options)(...params)
 
       if (exec !== undefined) {
         userPipeActions[key] = exec
