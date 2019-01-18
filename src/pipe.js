@@ -7,7 +7,7 @@ import React from 'react'
 const compose = (...funcs) =>
   funcs.reduce((a, b) => (...args) => a(b(...args)), arg => arg)
 
-export const pipe = actions => {
+export const pipe = (actions = {}) => {
   const userPipeActions = {}
   const options = {}
 
@@ -23,6 +23,10 @@ export const pipe = actions => {
   }
 
   Object.entries(actions).forEach(([key, value]) => {
+    if (pipeActions[key]) {
+      throw new Error(`actions ${key} is a already defined`)
+    }
+
     pipeActions[key] = params => {
       const exec = value(options)(params)
 

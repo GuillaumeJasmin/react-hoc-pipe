@@ -3,33 +3,9 @@
 import React from 'react'
 import enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { getAllFunctions, pipe, pipeRequest } from '../src/index'
+import { pipe, pipeRequest } from '../src/index'
 
 enzyme.configure({ adapter: new Adapter() })
-
-describe('getAllFunctions', () => {
-  it('should return correct array', () => {
-    const actions = {
-      request: {
-        externalsParams: ['foo', 'bar'],
-        HOC: () => null,
-      },
-      connect: {
-        externalsParams: ['connectFoo', 'connectBar'],
-        HOC: () => null,
-      },
-    }
-
-    expect(getAllFunctions(actions)).toEqual([
-      'request',
-      'connect',
-      'foo',
-      'bar',
-      'connectFoo',
-      'connectBar',
-    ])
-  })
-})
 
 describe('pipe', () => {
   it('should render Component', () => {
@@ -44,22 +20,21 @@ describe('pipe', () => {
       {props.x}-{props.y}-{props.z}
     </div>
   )
+
   const hocs = {
-    request: {
-      externalsParams: ['addData'],
-      HOC: ({ addData }) => data => App => props => (
-        <App {...props} {...data} {...addData[0]} />
-      ),
+    addData: options => data => {
+      options.addDataValue = data
     },
-    transformProps: {
-      HOC: () => () => App => props => (
-        <App
-          x={`transform__${props.x}`}
-          y={`transform__${props.y}`}
-          z={`transform__${props.z}`}
-        />
-      ),
-    },
+    request: options => data => App => props => (
+      <App {...props} {...data} {...options.addDataValue} />
+    ),
+    transformProps: () => () => App => props => (
+      <App
+        x={`transform__${props.x}`}
+        y={`transform__${props.y}`}
+        z={`transform__${props.z}`}
+      />
+    ),
   }
 
   it('should render HOC and Component and transform data', () => {
